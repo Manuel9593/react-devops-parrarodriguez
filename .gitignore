@@ -5,6 +5,15 @@ dist
 tmp
 /out-tsc
 
+# package manager
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # dependencies
 node_modules
 
