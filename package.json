@@ -3,6 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext .tsx,.jsx.,.js,.ts",
+    "preview": "vite preview",
+    "test": "jest --passWithNoTests"
+  },
   "devDependencies": {
     "@nx/cypress": "17.2.3",
     "@nx/eslint": "17.2.3",
