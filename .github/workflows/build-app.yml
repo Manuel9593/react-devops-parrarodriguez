@@ -1,43 +1,72 @@
 name: Build React App
 on:
-  push:
-    branches:
-    - development
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Inserisci il nome della branch"
+
 jobs:
-  build:
-    runs-on: macos-latest
+    build:
+        runs-on: macos-latest
+        steps:
+              - name: checkout repo code
+                uses: actions/checkout@v3
+            
+              - name: Setup Node.js
+                uses: actions/setup-node@v3
+                with:
+                  node-version: '18.x'
+                  cache: 'yarn'
+              - run: yarn install
+              - run: yarn nx run devops:build
+    test:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout repo code
+              uses: actions/checkout@v3
+          
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '18.x'
+                cache: 'yarn'
+
+            - run: yarn install
+            - run: yarn nx run devops:test
+    deploy:
+      needs: test
+      runs-on: windows-latest
+      permissions:
+        contents: write
+        pages: write
+        id-token: write
+      environment:
+        name: development
+        url: ${{ steps.deployment.outputs.page_url }}
       steps:
-        - name: checkout repo code
-          uses: actions/checkout@v3  
-        - name: use node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '18.x'
-            cache: 'yarn'
-        - name: yarn install
-          uses: Borales/actions-yarn@v4.2.0
-          with:
-            cmd: install
-        - name: yarn run 
-          uses: Borales/actions-yarn@v4.2.0
-          with:
-            cmd: run build
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repo code
-        uses: actions/checkout@v3
-      - name: use node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-          cache: 'yarn'
-      - name: yarn install
-        uses: Borales/actions-yarn@v4.2.0
-        with:
-          cmd: install
-      - name: yarn run test
-        uses: Borales/actions-yarn@v4.2.0
-        with:
-          cmd: run test
+          - name: checkout repo
+            uses: actions/checkout@v3
+            with:
+              token: ${{ secrets.GITHUB_TOKEN }}
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: '18.x'
+              cache: 'yarn'
+
+          - name: configure github pages
+            uses: actions/configure-pages@v3
+
+          - run: yarn install --immutable
+          - run: yarn nx run devops:build
+
+          - name: upload artifacts
+            uses: actions/upload-pages-artifact@v1
+            with: 
+              path: "./dist/apps/devops"
+
+          - name: deploy
+            id: deployment
+            uses: actions/deploy-pages@v1
