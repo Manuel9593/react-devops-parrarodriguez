@@ -14,8 +14,14 @@ jobs:
           with:
             node-version: '18.x'
             cache: 'yarn'
-        - run: yarn install
-        - run: yarn run build
+        - name: yarn install
+          uses: Borales/actions-yarn@v4.2.0
+          with:
+            cmd: install
+        - name: yarn run 
+          uses: Borales/actions-yarn@v4.2.0
+          with:
+            cmd: run build
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -27,5 +33,11 @@ jobs:
         with:
           node-version: '18.x'
           cache: 'yarn'
-      - run: yarn install
-      - run: yarn run test
+      - name: yarn install
+        uses: Borales/actions-yarn@v4.2.0
+        with:
+          cmd: install
+      - name: yarn run test
+        uses: Borales/actions-yarn@v4.2.0
+        with:
+          cmd: run test
