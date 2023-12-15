@@ -1,33 +1,31 @@
 name: Build React App
 on:
-    push:
-        branches:
-            - development
+  push:
+    branches:
+    - development
 jobs:
-    build:
-        runs-on: macos-latest
-        steps:
-              - name: checkout repo code
-                uses: actions/checkout@v3
-            
-              - name: use node.js
-                uses: actions/setup-node@v3
-                with:
-                    node-version: '18.x'
-                    cache: 'yarn'
-              - run: yarn install
-              - run: yarn run build
-    test:
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout repo code
-              uses: actions/checkout@v3
-          
-            - name: use node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: '18.x'
-                    cache: 'yarn'
-            - run: yarn install
-            - run: yarn run test
+  build:
+    runs-on: macos-latest
+      steps:
+        - name: checkout repo code
+          uses: actions/checkout@v3  
+        - name: use node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18.x'
+            cache: 'yarn'
+        - run: yarn install
+        - run: yarn run build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo code
+        uses: actions/checkout@v3
+      - name: use node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'yarn'
+      - run: yarn install
+      - run: yarn run test
