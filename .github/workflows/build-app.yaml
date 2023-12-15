@@ -1,8 +1,10 @@
 name: Build React App
 on:
-    push:
-        branches:
-            - development
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Inserisci il nome della branch"
+
 jobs:
     build:
         runs-on: macos-latest
