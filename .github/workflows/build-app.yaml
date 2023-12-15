@@ -15,16 +15,16 @@ jobs:
                 with:
                     node-version: '18.x'
                     cache: 'yarn'
-                    
+
               - name: yarn install
                 uses: Borales/actions-yarn@v4.2.0
                 with:
-                    cmd: install
+                    cmd: install --immutable
 
-              - name: yarn run 
+              - name: yarn run build
                 uses: Borales/actions-yarn@v4.2.0
                 with:
-                    cmd: nx devops:build
+                    cmd: nx run devops:build
     test:
         needs: build
         runs-on: ubuntu-latest
@@ -41,12 +41,12 @@ jobs:
             - name: yarn install 
               uses: Borales/actions-yarn@v4.2.0
               with:
-                  cmd: install
+                  cmd: install --immutable
 
             - name: yarn run 
               uses: Borales/actions-yarn@v4.2.0
               with:
-                  cmd: nx devops:test
+                  cmd: nx run devops:test
     deploy:
       needs: test
       runs-on: windows-latest
@@ -80,7 +80,7 @@ jobs:
           - name: yarn nx build 
             uses: Borales/actions-yarn@v4.2.0
             with:
-                cmd: nx devops:build
+                cmd: nx run devops:build
 
           - name: upload artifacts
             uses: actions/upload-pages-artifact@v1
