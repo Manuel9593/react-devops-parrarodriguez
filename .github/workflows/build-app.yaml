@@ -13,17 +13,10 @@ jobs:
               - name: Yarn setup
                 uses: DerYeger/yarn-setup-action@master
                 with:
-                  node-version: 16
+                  node-version: 18
 
-              - name: yarn install
-                uses: Borales/actions-yarn@v4.2.0
-                with:
-                    cmd: install --immutable
-
-              - name: yarn run build
-                uses: Borales/actions-yarn@v4.2.0
-                with:
-                    cmd: nx run devops:build
+              - run: yarn install
+              - run: yarn nx run devops:build
     test:
         needs: build
         runs-on: ubuntu-latest
@@ -34,10 +27,9 @@ jobs:
             - name: Yarn setup
               uses: DerYeger/yarn-setup-action@master
               with:
-                node-version: 16
+                node-version: 18
 
-            - run: yarn install --immutable
-
+            - run: yarn install
             - run: yarn nx run devops:test
     deploy:
       needs: test
@@ -58,7 +50,7 @@ jobs:
           - name: Yarn setup
             uses: DerYeger/yarn-setup-action@master
             with:
-              node-version: 16
+              node-version: 18
 
           - name: configure github pages
             uses: actions/configure-pages@v3
