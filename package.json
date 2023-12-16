@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "license": "MIT",
     "private": true,
+    "type": "module",
     "devDependencies": {
         "@nx/cypress": "17.2.3",
         "@nx/eslint": "17.2.3",
@@ -37,7 +38,8 @@
         "sass": "^1.55.0",
         "typescript": "~5.2.2",
         "vite": "^5.0.0",
-        "vitest": "~0.34.6"
+        "vitest": "~0.34.6",
+        "webpack": "^5.89.0"
     },
     "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72",
     "dependencies": {
