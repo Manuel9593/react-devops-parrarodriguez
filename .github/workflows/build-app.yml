@@ -16,6 +16,7 @@ jobs:
                 uses: actions/setup-node@v4
                 with:
                   node-version: '18.x'
+                  check-latest: true
                   cache: 'yarn'
                   cache-dependency-path: 'yarn.lock'
 
@@ -32,6 +33,7 @@ jobs:
               uses: actions/setup-node@v4
               with:
                 node-version: '18.x'
+                check-latest: true
                 cache: 'yarn'
                 cache-dependency-path: 'yarn.lock'
 
@@ -57,6 +59,7 @@ jobs:
             uses: actions/setup-node@v4
             with:
               node-version: '18.x'
+              check-latest: true
               cache: 'yarn'
               cache-dependency-path: 'yarn.lock'
 
