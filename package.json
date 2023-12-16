@@ -39,7 +39,7 @@
         "vite": "^5.0.0",
         "vitest": "~0.34.6"
     },
-    "packageManager": "yarn@3.7.0+sha256.7bf0c78a106332886ea4e59641fd819b1af953edcd72c4d93a32b1c71000ee67",
+    "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72",
     "dependencies": {
         "@swc/helpers": "~0.5.2",
         "react": "18.2.0",
