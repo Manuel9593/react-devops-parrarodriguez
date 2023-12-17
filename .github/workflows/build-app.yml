@@ -9,40 +9,38 @@ jobs:
     build:
         runs-on: macos-latest
         steps:
-              - name: checkout repo code
-                uses: actions/checkout@v4
-            
-              - run: corepack enable
+          - uses: actions/checkout@v4
+        
+          - run: corepack enable
 
-              - name: Setup Node.js
-                uses: actions/setup-node@v4
-                with:
-                  node-version: '18.x'
-                  check-latest: true
-                  cache: 'yarn'
-                  cache-dependency-path: 'yarn.lock'
+          - uses: actions/setup-node@v4
+            with:
+              node-version: '18.x'
+              check-latest: true
+              cache: 'yarn'
+              cache-dependency-path: 'yarn.lock'
 
-              - run: yarn install
-              - run: yarn nx run devops:build
+          - run: yarn install
+          - run: yarn nx run devops:build
+          - run: corepack disable
     test:
         needs: build
         runs-on: ubuntu-latest
         steps:
-            - name: checkout repo code
-              uses: actions/checkout@v4
-          
-            - run: corepack enable
+          - uses: actions/checkout@v4
+        
+          - run: corepack enable
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: '18.x'
-                check-latest: true
-                cache: 'yarn'
-                cache-dependency-path: 'yarn.lock'
+          - uses: actions/setup-node@v4
+            with:
+              node-version: '18.x'
+              check-latest: true
+              cache: 'yarn'
+              cache-dependency-path: 'yarn.lock'
 
-            - run: yarn install
-            - run: yarn nx run devops:test
+          - run: yarn install
+          - run: yarn nx run devops:test
+          - run: corepack disable
     deploy:
       needs: test
       runs-on: windows-latest
@@ -54,32 +52,28 @@ jobs:
         name: development
         url: ${{ steps.deployment.outputs.page_url }}
       steps:
-          - name: checkout repo
-            uses: actions/checkout@v4
-            with:
-              token: ${{ secrets.GITHUB_TOKEN }}
+        - uses: actions/checkout@v4
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
 
-          - run: corepack enable
-              
-          - name: Setup Node.js
-            uses: actions/setup-node@v4
-            with:
-              node-version: '18.x'
-              check-latest: true
-              cache: 'yarn'
-              cache-dependency-path: 'yarn.lock'
+        - run: corepack enable
+            
+        - uses: actions/setup-node@v4
+          with:
+            node-version: '18.x'
+            check-latest: true
+            cache: 'yarn'
+            cache-dependency-path: 'yarn.lock'
 
-          - name: configure github pages
-            uses: actions/configure-pages@v4
+        - uses: actions/configure-pages@v4
 
-          - run: yarn install
-          - run: yarn nx run devops:build
+        - run: yarn install
+        - run: yarn nx run devops:build
 
-          - name: upload artifacts
-            uses: actions/upload-pages-artifact@v2
-            with: 
-              path: "dist/apps/devops"
+        - uses: actions/upload-pages-artifact@v2
+          with: 
+            path: "dist/apps/devops"
 
-          - name: deploy
-            id: deployment
-            uses: actions/deploy-pages@v3
+        - id: deployment
+          uses: actions/deploy-pages@v3
+        - run: corepack disable
