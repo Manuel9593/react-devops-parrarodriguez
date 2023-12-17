@@ -65,7 +65,7 @@ jobs:
           - name: upload artifacts
             uses: actions/upload-pages-artifact@v1
             with: 
-              path: "./dist/apps/devops"
+              path: "dist/apps/devops"
 
           - name: deploy
             id: deployment
