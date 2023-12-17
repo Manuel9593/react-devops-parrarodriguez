@@ -45,7 +45,7 @@ jobs:
           - run: corepack disable
     deploy:
       needs: test
-      runs-on: ubuntu-latest
+      runs-on: windows-latest
       permissions:
         contents: write
         pages: write
@@ -59,7 +59,8 @@ jobs:
             token: ${{ secrets.GITHUB_TOKEN }}
 
         - run: corepack enable
-        - run: corepack prepare yarn@stable --activate
+        - run: corepack prepare yarn@stable --activat
+        - run: yarn set version stable --yarn-path
             
         - uses: actions/setup-node@v4
           with:
