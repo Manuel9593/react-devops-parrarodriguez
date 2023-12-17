@@ -7,6 +7,7 @@ export default defineConfig({
   root: __dirname,
   cacheDir: '../../node_modules/.vite/apps/devops',
 
+  base: '/react-devops-parrarodriguez',
   server: {
     port: 4200,
     host: 'localhost',
