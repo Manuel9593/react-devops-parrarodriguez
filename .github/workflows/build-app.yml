@@ -45,7 +45,7 @@ jobs:
           - run: corepack disable
     deploy:
       needs: test
-      runs-on: windows-latest
+      runs-on: ubuntu-latest
       permissions:
         contents: write
         pages: write
